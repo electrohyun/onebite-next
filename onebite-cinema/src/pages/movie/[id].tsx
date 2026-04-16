@@ -1,20 +1,77 @@
+import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import style from "./[id].module.css";
+import fetchOneMovie from "@/lib/fetch-one-movie";
+import { useRouter } from "next/router";
+import Head from "next/head";
 
-const mockData = {
-  id: 1,
-  title: "휴민트",
-  releaseDate: "2026-02-11",
-  company: "(주)NEW",
-  genres: ["액션", "드라마"],
-  subTitle: "휴민트가 노출되었다, 반드시 살려야 한다!",
-  description:
-    "동남아에서 벌어진 국제 범죄를 추적하던 국정원 블랙 요원, 조 과장(조인성)은 자신의 휴민트 작전에서 희생된 정보원이 남긴 단서를 쫓아 블라디보스토크로 향한다. 그곳에서 북한 식당 종업원 채선화(신세경)와 접촉한 조 과장은 새로운 휴민트 작전의 정보원으로 그녀를 선택한다. 한편, 국경 지역에서 발생한 실종 사건을 조사하기 위해 블라디보스토크로 파견된 보위성 조장 박건(박정민)은 해당 사건의 배후에 북한 총영사 황치성(박해준)이 연루되어 있음을 알게 된다. 서로 다른 목적으로 블라디보스토크에서 충돌하게 된 사람들. 짙어지는 의심과 불확실한 진실, 각자의 선택은 돌이킬 수 없는 길을 향하는데...",
-  runtime: 119,
-  posterImgUrl:
-    "https://search.pstatic.net/common?&quality=85&direct=true&src=https%3A%2F%2Fs.pstatic.net%2Fmovie.phinf%2F20260211_258%2F1770776745027AHaUb_JPEG%2Fmovie_image.jpg%3Ftype%3Dw640_2",
+export const getStaticPaths = async () => {
+  return {
+    paths: [
+      {
+        params: { id: "1" },
+      },
+      { params: { id: "2" } },
+      { params: { id: "3" } },
+      { params: { id: "4" } },
+      { params: { id: "5" } },
+      { params: { id: "6" } },
+      { params: { id: "7" } },
+      { params: { id: "8" } },
+      { params: { id: "9" } },
+      { params: { id: "10" } },
+      { params: { id: "11" } },
+      { params: { id: "12" } },
+      { params: { id: "13" } },
+      { params: { id: "14" } },
+      { params: { id: "15" } },
+      { params: { id: "16" } },
+      { params: { id: "17" } },
+      { params: { id: "18" } },
+    ],
+    fallback: false,
+  };
 };
 
-export default function Page() {
+export const getStaticProps = async (context: GetStaticPropsContext) => {
+  const id = context.params!.id;
+  const movie = await fetchOneMovie(Number(id));
+
+  if (!movie) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: {
+      movie,
+    },
+  };
+};
+
+export default function Page({
+  movie,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
+  const router = useRouter();
+
+  if (router.isFallback) {
+    return (
+      <>
+        <Head>
+          <title>한입 시네마</title>
+          <meta property="og:image" content="/thumbnail.png" />
+          <meta property="og:title" content="한입 시네마" />
+          <meta
+            property="og:description"
+            content="한입 시네마에 등록된 영화들을 만나보세요!"
+          />
+        </Head>
+        <div>로딩 중...</div>
+      </>
+    );
+  }
+  if (!movie) return "문제 발생. 다시 시도하세요";
+
   const {
     title,
     subTitle,
@@ -24,25 +81,33 @@ export default function Page() {
     genres,
     runtime,
     posterImgUrl,
-  } = mockData;
+  } = movie;
 
   return (
-    <div className={style.container}>
-      <div
-        className={style.cover_img_container}
-        style={{ backgroundImage: `url('${posterImgUrl}')` }}
-      >
-        <img src={posterImgUrl} />
-      </div>
-      <div className={style.title}>{title}</div>
-      <div className={style.author}>
-        {releaseDate} / {genres.join(", ")} | {runtime}분
-      </div>
-      <div className={style.company}>{company}</div>
+    <>
+      <Head>
+        <title>{title}</title>
+        <meta property="og:image" content={posterImgUrl} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+      </Head>
+      <div className={style.container}>
+        <div
+          className={style.cover_img_container}
+          style={{ backgroundImage: `url('${posterImgUrl}')` }}
+        >
+          <img src={posterImgUrl} />
+        </div>
+        <div className={style.title}>{title}</div>
+        <div className={style.author}>
+          {releaseDate} / {genres.join(", ")} | {runtime}분
+        </div>
+        <div className={style.company}>{company}</div>
 
-      <div className={style.subtitle}>{subTitle}</div>
+        <div className={style.subtitle}>{subTitle}</div>
 
-      <div className={style.description}>{description}</div>
-    </div>
+        <div className={style.description}>{description}</div>
+      </div>
+    </>
   );
 }
