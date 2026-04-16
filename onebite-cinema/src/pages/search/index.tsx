@@ -23,23 +23,6 @@ export default function Page() {
     }
   }, [q]);
 
-  if (router.isFallback) {
-    return (
-      <>
-        <Head>
-          <title>한입 시네마</title>
-          <meta property="og:image" content="/thumbnail.png" />
-          <meta property="og:title" content="한입 시네마" />
-          <meta
-            property="og:description"
-            content="한입 시네마에 등록된 영화들을 만나보세요!"
-          />
-        </Head>
-        <div>로딩 중...</div>
-      </>
-    );
-  }
-
   return (
     <>
       <Head>
