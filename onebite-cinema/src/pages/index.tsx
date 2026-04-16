@@ -2,7 +2,6 @@ import SearchableLayout from "@/components/searchable-layout";
 import style from "./index.module.css";
 import type { ReactNode } from "react";
 import movies from "@/mock/movies.json";
-import MovieItem from "@/components/movie-item";
 import Link from "next/link";
 
 export default function Home() {

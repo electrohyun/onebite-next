@@ -16,7 +16,6 @@ const mockData = {
 
 export default function Page() {
   const {
-    id,
     title,
     subTitle,
     description,

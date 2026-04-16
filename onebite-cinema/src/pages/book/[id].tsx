@@ -13,7 +13,7 @@ const mockData = {
 };
 
 export default function Page() {
-  const { id, title, subTitle, description, author, publisher, coverImgUrl } =
+  const { title, subTitle, description, author, publisher, coverImgUrl } =
     mockData;
   return (
     <div className={style.container}>
