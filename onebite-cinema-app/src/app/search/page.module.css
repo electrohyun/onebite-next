@@ -1,0 +1,37 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.container h3 {
+  color: white;
+  margin-bottom: 0;
+}
+
+.search_result_section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.search_result_list {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.search_result_list > a {
+  flex: 1 1 200px;
+  padding: 0;
+  border-bottom: none;
+}
+
+.search_result_list img {
+  display: block;
+  width: 100%;
+}
+
+.search_result_item {
+  display: block;
+}

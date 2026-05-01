@@ -1,0 +1,61 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.container h3 {
+  color: white;
+  margin-bottom: 0px;
+}
+
+.recommend_section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.recommend_list {
+  display: flex;
+  gap: 5px;
+}
+
+.recommend_list > a {
+  flex: 1;
+  padding: 0;
+  border-bottom: none;
+}
+
+.recommend_list img {
+  display: block;
+  width: 100%;
+}
+
+.recommend_movie_item {
+  display: block;
+}
+
+.all_movies_section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.all_movies_list {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 5px 5px;
+}
+
+.all_movies_list > a {
+  padding: 0;
+  border-bottom: none;
+  display: flex;
+  flex-direction: column;
+  color: white;
+}
+
+.all_movies_list img {
+  display: block;
+  width: 100%;
+}
