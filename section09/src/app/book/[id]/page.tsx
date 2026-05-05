@@ -6,10 +6,17 @@ import ReviewEditor from "@/components/review-editor";
 import Image from "next/image";
 import { Metadata } from "next";
 
-export const dynamicParams = false;
-
-export function generateStaticParams() {
-  return [{ id: "1" }, { id: "2" }, { id: "3" }];
+// export const dynamicParams = false;
+export async function generateStaticParams() {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/book`,
+    { cache: "force-cache" },
+  );
+  if (!response.ok) {
+    throw new Error("Failed to fetch book list: " + response.statusText);
+  }
+  const allBooks: { id: string }[] = await response.json();
+  return allBooks.map((book) => ({ id: book.id }));
 }
 
 export async function generateMetadata({
