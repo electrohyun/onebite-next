@@ -15,8 +15,8 @@ export async function generateStaticParams() {
   if (!response.ok) {
     throw new Error("Failed to fetch book list: " + response.statusText);
   }
-  const allBooks: { id: string }[] = await response.json();
-  return allBooks.map((book) => ({ id: book.id }));
+  const allBooks: { id: string | number }[] = await response.json();
+  return allBooks.map((book) => ({ id: String(book.id) }));
 }
 
 export async function generateMetadata({
