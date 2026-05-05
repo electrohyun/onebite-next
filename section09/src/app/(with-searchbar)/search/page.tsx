@@ -7,9 +7,9 @@ import { Suspense } from "react";
 export async function generateMetadata({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string }>;
+  searchParams: { q?: string };
 }): Promise<Metadata> {
-  const { q } = await searchParams;
+  const { q } = searchParams;
   // 현재 페이지의 메타 데이터 동적으로 생성
   return {
     title: q ? `${q} 검색 결과 | 한입 북스` : "한입 북스",
@@ -46,7 +46,7 @@ async function SearchResult({ q }: { q: string }) {
 export default function Page({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string }>;
+  searchParams: { q?: string };
 }) {
   return (
     <Suspense
