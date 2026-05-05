@@ -8,7 +8,7 @@ import { Metadata } from "next";
 
 export const dynamic = "force-dynamic";
 
-export const metadate: Metadata = {
+export const metadata: Metadata = {
   title: "한입 북스",
   description: "한입 북스에 등록된 도서를 만나보세요",
   openGraph: {
